@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 
 # --- LOAD AI MODEL (once, at startup) ---
 # UPDATED: Switched to a more robust model benchmarked for Speech Emotion Recognition.
-MODEL_NAME = "superb/wav2vec2-base-superb-er" 
+MODEL_NAME = "MODEL_NAME = "ehcalabres/wav2vec2-lg-xlsr-en-speech-emotion-recognition" 
 print("Loading model...")
 try:
     model = Wav2Vec2ForSequenceClassification.from_pretrained(MODEL_NAME)
@@ -43,10 +43,16 @@ def analyze_emotion(file_path):
         # The model sometimes outputs 'ang' for angry, 'hap' for happy, etc.
         # Let's map them to full words for a better UI.
         label_mapping = {
-            "ang": "angry",
-            "hap": "happy",
-            "neu": "neutral",
-            "sad": "sad"
+            label_mapping = {
+    "angry": "angry",
+    "disgust": "disgust",
+    "fear": "fearful",
+    "happy": "happy",
+    "neutral": "neutral",
+    "sad": "sad",
+    "surprise": "surprised"
+        }
+
         }
         
         return label_mapping.get(predicted_emotion, predicted_emotion)
@@ -92,3 +98,4 @@ def analyze_audio():
 if __name__ == "__main__":
     # Runs the Flask app. 'debug=True' is for development.
     app.run(debug=True, port=5000)
+
